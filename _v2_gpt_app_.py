@@ -4,8 +4,7 @@ import json
 import glob
 
 # APIキーの設定
-openai.organization = "Your organization key"
-openai.api_key = "Your API key"
+openai.api_key = "*****"
 
 # GPTモデルを使った質問と回答の処理
 def ask_gpt(prompt, conversation_history):
@@ -36,6 +35,11 @@ def load_conversation_from_file(file_path):
     else:
         conversation_history = [{"role": "system", "content": "You are a helpful assistant."}]
 
+    # 会話履歴を表示する
+    print("会話履歴:")
+    for message in conversation_history:
+        print(f"{message['role'].capitalize()}: {message['content']}")
+
     return conversation_history
 
 # 会話履歴ファイルのリストから選択する機能を実装
@@ -60,7 +64,7 @@ def select_conversation_file():
 
 # メインのアプリ
 def main():
-    print("GPTアプリへようこそ！　質問を入力してください。")
+    print("GPTアプリへようこそ！質問を入力してください。")
     print("終了するには 'q' と入力してください。")
 
     # 会話履歴ファイルを選択
@@ -72,13 +76,14 @@ def main():
     while True:
         user_input = input("\n質問: ")
         if user_input.lower() == "q":
-            # 終了時に会話履歴をファイルに保存
-            save_conversation_to_file(conversation_history, file_path)
             break
 
         # GPTに質問を投げ、回答を受け取る
         response = ask_gpt(user_input, conversation_history)
         print(f"GPTの回答: {response}")
+
+        # AIによる答えが終了したら会話履歴をファイルに保存
+        save_conversation_to_file(conversation_history, file_path)
 
 if __name__ == "__main__":
     main()
