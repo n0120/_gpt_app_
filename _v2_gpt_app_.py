@@ -4,7 +4,7 @@ import json
 import glob
 
 # APIキーの設定
-openai.api_key = "*****"
+openai.api_key = "Your API key"
 
 # GPTモデルを使った質問と回答の処理
 def ask_gpt(prompt, conversation_history):
